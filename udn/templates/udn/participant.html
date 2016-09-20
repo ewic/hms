@@ -1,0 +1,19 @@
+<h1>{{participant.name}}</h1>
+<ul>
+	<li>DOB: {{participant.birthdate}}</li>
+	<li>Age: {{participant.getAge}}</li>
+</ul>
+<h2>Known Environmental Exposures</h2>
+<ul>
+{% for ee in participant.getEnvironmentalExposures %}
+	<li>{{ee}}</li>
+{% endfor %}
+</ul>
+<h2>Known Genetic Mutations</h2>
+<ul>
+{% for gm in participant.getGeneticMutations %}
+	<li>{{gm}}</li>
+{% endfor %}
+</ul>
+
+{{form}}

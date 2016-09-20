@@ -1,9 +1,15 @@
+import datetime
+
 from django.db import models
 
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+'''
+Defining EnvironmentalExposures and GeneticMutations as models and attaching
+them to the participants via ManyToMany relationships allows us to dynamically
+create them and attach them to Participants on the fly.
+'''
 class EnvironmentalExposure(models.Model):
 	name = models.CharField(max_length=200)
 	description = models.TextField()
@@ -25,11 +31,27 @@ class Participant(models.Model):
 	environmental_exposure = models.ManyToManyField(EnvironmentalExposure)
 	genetic_mutation = models.ManyToManyField(GeneticMutation)
 
+	reviewed = models.BooleanField(default=False)
+	accepted = models.BooleanField(default=False)
+
 	def __str__(self):
 		return self.name
 
 	def getAge(self):
-		now = datetime.datetime.now()
+		now = datetime.date.today()
 		age = now.year - self.birthdate.year
 		return age
+	def getEnvironmentalExposures(self):
+		ee = self.environmental_exposure.all()
+		return ee
+	def getGeneticMutations(self):
+		gm = self.genetic_mutation.all()
+		return gm
 
+	def getStatus(self):
+		if (reviewed == false):
+			return 'new'
+		if (reviewed == true and accepted == false):
+			return 'not accepted'
+		if (reviewed == true and accepted == true):
+			return 'accepted'
