@@ -1,13 +1,16 @@
 from django import forms
 
-class ParticipantForm(forms.Form):
-	nameField = forms.CharField(label='Name',max_length=200)
-	birthdateField = forms.DateField(label='Birthdate')
-	siblings = forms.BooleanField(label='siblings')
+from .models import Participant
 
-class ReviewForm(forms.Form):
-	reviewedField = forms.BooleanField(label='Reviewed?')
-	acceptedField = forms.BooleanField(label='Accepted?')
+class ParticipantForm(forms.ModelForm):
+	class Meta:
+		model = Participant
+		fields = ('name', 'birthdate', 'siblings', 'environmental_exposure', 'genetic_mutation')
+
+class ReviewForm(forms.ModelForm):
+	class Meta:
+		model = Participant
+		fields = ('reviewed', 'accepted')
 
 class EeForm(forms.Form):
 	nameField = forms.CharField(label='Name', max_length=200)

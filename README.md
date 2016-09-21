@@ -1,6 +1,8 @@
 # UDN-lite
 A mini undiagnosed diseases network app built in Django for Harvard Med School code test.
 
+So I started 
+
 Built with <3.
 
 ## Starting the app

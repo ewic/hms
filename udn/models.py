@@ -49,9 +49,9 @@ class Participant(models.Model):
 		return gm
 
 	def getStatus(self):
-		if (reviewed == false):
+		if (self.reviewed == False):
 			return 'new'
-		if (reviewed == true and accepted == false):
+		if (self.reviewed == True and self.accepted == False):
 			return 'not accepted'
-		if (reviewed == true and accepted == true):
+		if (self.reviewed == True and self.accepted == True):
 			return 'accepted'

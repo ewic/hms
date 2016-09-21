@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+
+from django.template import RequestContext
 
 from .models import Participant
 from .forms import ParticipantForm, EeForm, GmForm, ReviewForm
@@ -11,19 +13,27 @@ def index(request):
 
 # New model entry form
 def form(request, form_type):
-	error_message = ''
-	if (form_type == 'p'):
-		form = ParticipantForm
+	if (request.method=="POST"):
+		message = 'Added new participant'
+		form = ParticipantForm(request.POST)
 		title = 'New Participant'
-	elif (form_type == 'gm'):
-		form = GmForm
-		title = 'New Genetic Mutation'
-	elif (form_type == 'ee'):
-		form = EeForm
-		title = 'New Environmental Exposure'
+		if form.is_valid():
+			p = form.save()
+			return participant(request, participant_id=p.id)
 	else:
-		error_message = 'Invalid form type'
-	return render(request, 'udn/form.html', {'title': title, 'form': form, 'error_message': error_message})
+		message = ''
+		if (form_type == 'p'):
+			form = ParticipantForm
+			title = 'New Participant'
+		elif (form_type == 'gm'):
+			form = GmForm
+			title = 'New Genetic Mutation'
+		elif (form_type == 'ee'):
+			form = EeForm
+			title = 'New Environmental Exposure'
+		else:
+			message = 'Invalid form type'
+	return render(request, 'udn/form.html', {'title': title, 'form': form, 'message': message})
 
 # List of all participants
 def list(request):
@@ -33,7 +43,21 @@ def list(request):
 # Display a single participant for review
 def participant(request, participant_id):
 	participant = get_object_or_404(Participant, pk = participant_id)
-	form = ReviewForm
+	# Handle the form if saved
+	if (request.method=="POST"):
+		form = ReviewForm(request.POST)
+		if form.is_valid():
+			# Fill in the missing data, since the review form only knows about
+			#   the reviewed and accepted status
+
+			print(form)
+
+			participant.reviewed = form.fields['reviewed']
+			participant.accepted = form.fields['accepted']
+			# Save the model
+			participant.save()
+	else:
+		form = ReviewForm
 	return render(request, 'udn/participant.html', {'participant': participant, 'form': ReviewForm})
 
 ## MAYBE THIS WILL BE USEFUL IF THIS WERE NOT JUST A CODE TEST BUT IDK I DON'T WANT TO JUST DELETE IT ALL
@@ -48,6 +72,3 @@ def ee(request, environmentalexposure_id):
 def gm(request, geneticmutation_id):
 	geneticmutation = get_object_or_404(geneticmutation, pk = geneticmutation_id)
 	return render(request, 'udn/geneticmutation.html', {'geneticmutation': geneticmutation})
- 
-def entry(request, data):
-	return HttpResponse(data)

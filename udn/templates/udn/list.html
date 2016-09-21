@@ -1,7 +1,5 @@
 <h1>List of Participants</h1>
 
-{{ list }}
-
 <ul>
 {% for participant in list %}
 	<li><a href="{% url 'udn:participant' participant.id %}">{{participant}}</a></li>

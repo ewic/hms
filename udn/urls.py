@@ -11,13 +11,10 @@ urlpatterns = [
 	# New participant form
 	url(r'^form/(?P<form_type>[a-z]+)/$', views.form, name='form'),
 
-	# Data entry endpoint
-	url(r'^entry/', views.entry, name='entry'),
-	
 	# Participant list
 	url(r'^list/', views.list, name='list'),
 	# Participant view
-	url(r'^participant/(?P<participant_id>[0-9]+)/$', views.participant, name='participant'),
+	url(r'^participant/(?P<participant_id>[0-9]+)/', views.participant, name='participant'),
 
 	# Not sure if we need these...
 	# Genetic Mutation view

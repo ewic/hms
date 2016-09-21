@@ -1,3 +1,8 @@
 <h1>{{title}}</h1>
-
-{{form}}
+{{message}}
+<form method="POST">
+{% csrf_token %}
+{{form.as_p}}
+(birth date is in the form mm/dd/yyyy) <br />
+<input type="submit">
+</form>
