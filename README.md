@@ -1,3 +1,9 @@
+# UDN2 
+
+The UDN2 that I built is just a complete remake of the original project, without all of the 
+
+# Original Documentation
+
 # UDN-lite
 A mini undiagnosed diseases network app built in Django for Harvard Med School code test.
 

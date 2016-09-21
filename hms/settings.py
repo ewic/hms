@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'udn.apps.UdnConfig',
+    'udn2.apps.Udn2Config',
 
     'django.contrib.admin',
     'django.contrib.auth',

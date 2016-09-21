@@ -1,0 +1,25 @@
+<h1>{{participant.name}}</h1>
+<ul>
+	<li>DOB: {{participant.birthdate}}</li>
+	<li>Age: {{participant.getAge}}</li>
+</ul>
+<h2>Known Environmental Exposures</h2>
+<p>
+{{participant.environmental_exposures}}
+</p>
+<h2>Known Genetic Mutations</h2>
+<p>
+{{participant.genetic_mutations}}
+</p>
+
+<br />
+<hr />
+Status: {{participant.status}}
+<br />
+<form method="POST">
+{% csrf_token %}
+{{form}}
+<input type="submit" value="save">
+</form>
+
+<a href="{% url 'udn2:index' %}">Go home</a>

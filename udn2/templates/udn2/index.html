@@ -1,0 +1,49 @@
+<style>
+table, td, th {
+	border: 1px solid black;
+}
+</style>
+
+<h1>UDN2 electric boogaloo</h1>
+
+<h2>List of Participants</h2>
+
+<table>
+<tr>
+	<th>Name</th>
+	<th>Age</th>
+	<th>Siblings</th>
+	<th>Known Environmental Exposures</th>
+	<th>Known Genetic Mutations</th>
+	<th>Status</th>
+</tr>
+{% for participant in participants %}
+<tr>
+	<td><a href="{% url 'udn2:participant' participant.id %}">{{participant.name}}</a></td>
+	<td>{{participant.getAge}}</td>
+	<td>{{participant.siblings}}</td>
+	<td>{{participant.environmental_exposures}}</td>
+	<td>{{participant.genetic_mutations}}</td>
+	<td><form method="post">{% csrf_token %}
+			{{participant.form.status}}
+			<input type="hidden" name="participant_id" value="{{participant.id}}">
+		</form></td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="{% url 'udn2:form' %}">Create New Participant</a>
+
+<script type="text/javascript">
+//Add onchange to all dropdown lists.
+var eles = document.getElementsByTagName('select');
+
+for (i = 0; i < eles.length; i++) {
+	// Each node must have a unique attribute node, so this
+	//   must be recreated repeatedly
+	var att = document.createAttribute("onchange");
+	att.value="this.form.submit()";
+    
+    eles[i].setAttributeNode(att);
+}
+</script>
