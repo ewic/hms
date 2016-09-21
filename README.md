@@ -1,10 +1,40 @@
 # UDN2 
 
-The UDN2 that I built is just a complete remake of the original project, without all of the 
+A mini UDN app built for Harvard Med School code test.
 
-# Original Documentation
+Requirements
 
-# UDN-lite
+* Python3
+
+## Starting the app
+
+Make the models
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Start the dev server
+
+```
+python manage.py runserver
+```
+
+Access to the site is via `http://localhost:8000/udn2`.
+
+## 
+
+## Wait, why udn2?  What happened to udn1?
+
+So when I originally got the assignment, I quickly read the requirements and was off to the races.  Unfortunately, I got some crazy idea to store genetic mutations and environmental exposures as seperate models, this way it would be possible to perform analytics based on these parameters.  Django supported the Many to Many model field type, so it looked like it would be relatively simple.
+
+As I continued working on it, I continued adding features that I thought would be neat and fixing the bugs that would crop up as a result and before I realized it, I had produced something wildly out-of-scope and overengineered given the requirements.  This includes multiple views to read and edit the extra models I had made, multiple forms corresponding to said models, and a bunch of workarounds in the models themselves to deal with the fact that actual participant model instance was now spidering out across several models... 
+
+Thus, I made udn2 in the past couple hours, which does everything it needs to and nothing more.  I included the half-written original documentation below, if you would like to read it, as well as the code, located in the `/udn/` folder.  Additionally the `udn` app is installed and started up alongside `udn2`, and has its admin functionality enabled.  To create a new admin you will have to create one via `python manage.py createnewsuperuser`, but `udn2` does not have any admin capabilities set up because it wasn't in the requirements.  <3
+
+# UDN1
+
 A mini undiagnosed diseases network app built in Django for Harvard Med School code test.
 
 So I started 
