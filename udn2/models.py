@@ -5,7 +5,7 @@ import json
 # Create your models here.
 class Participant(models.Model):
 	name = models.CharField(max_length=200)
-	birthdate = models.DateField('birthdate (mm/dd/yyyy')
+	birthdate = models.DateField('birthdate (mm/dd/yyyy)')
 	siblings = models.BooleanField()
 
 	## Eventually this should be some kind of list structure, so we could
