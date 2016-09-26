@@ -39,7 +39,7 @@ def form(request):
 		title = 'New Participant'
 		if form.is_valid():
 			p = form.save()
-			return redirect(participant, participant_id=p.id)
+			return redirect('udn2:participant', participant_id=p.id)
 	else:
 		form = ParticipantForm
 		title = 'New Participant'
